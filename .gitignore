@@ -1,0 +1,11 @@
+node_modules/
+dist/
+.DS_Store
+*.log
+backend/temp/uploads/*
+backend/temp/exports/*
+backend/temp/test_assets/*
+!backend/temp/uploads/.gitkeep
+!backend/temp/exports/.gitkeep
+.env
+.env.local

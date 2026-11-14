@@ -1,0 +1,26 @@
+{
+  "name": "antigravity-video-studio",
+  "version": "1.0.0",
+  "description": "Personal lightweight cloud-based video generator using Vue.js 3, Node.js, Express, and FFmpeg",
+  "private": true,
+  "scripts": {
+    "start": "node backend/src/server.js",
+    "build": "npm --prefix backend install --ignore-scripts && npm --prefix frontend install && npm --prefix frontend run build",
+    "dev:backend": "cd backend && npm run dev",
+    "dev:frontend": "cd frontend && npm run dev",
+    "build:frontend": "cd frontend && npm run build",
+    "test:pipeline": "cd backend && node test_pipeline.js",
+    "test:api": "cd backend && node test_api_endpoints.js"
+  },
+  "keywords": [
+    "video-generator",
+    "vue3",
+    "ffmpeg",
+    "nodejs",
+    "express",
+    "subtitles",
+    "timeline"
+  ],
+  "author": "Antigravity",
+  "license": "MIT"
+}
