@@ -1,26 +1,25 @@
 {
-  "name": "antigravity-video-studio",
+  "name": "media-video-generator-frontend",
   "version": "1.0.0",
-  "description": "Personal lightweight cloud-based video generator using Vue.js 3, Node.js, Express, and FFmpeg",
   "private": true,
+  "type": "module",
   "scripts": {
-    "start": "node backend/src/server.js",
-    "build": "npm --prefix backend install --ignore-scripts && npm --prefix frontend install && npm --prefix frontend run build",
-    "dev:backend": "cd backend && npm run dev",
-    "dev:frontend": "cd frontend && npm run dev",
-    "build:frontend": "cd frontend && npm run build",
-    "test:pipeline": "cd backend && node test_pipeline.js",
-    "test:api": "cd backend && node test_api_endpoints.js"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
   },
-  "keywords": [
-    "video-generator",
-    "vue3",
-    "ffmpeg",
-    "nodejs",
-    "express",
-    "subtitles",
-    "timeline"
-  ],
-  "author": "Antigravity",
-  "license": "MIT"
+  "dependencies": {
+    "antigravity-video-studio": "file:..",
+    "html-to-image": "^1.11.13",
+    "html2canvas": "^1.4.1",
+    "lucide-vue-next": "^0.468.0",
+    "vue": "^3.5.13"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.2.1",
+    "autoprefixer": "^10.6.2",
+    "postcss": "^8.5.32",
+    "tailwindcss": "^3.4.19",
+    "vite": "^6.0.3"
+  }
 }

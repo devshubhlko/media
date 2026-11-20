@@ -1,9 +1,0 @@
-node_modules
-dist
-.git
-.env
-.env.local
-backend/temp/uploads/*
-backend/temp/exports/*
-!backend/temp/uploads/.gitkeep
-!backend/temp/exports/.gitkeep

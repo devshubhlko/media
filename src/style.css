@@ -1,0 +1,1023 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg-main: #f8fafc;
+  --bg-panel: #ffffff;
+  --bg-card: #f1f5f9;
+  --bg-input: #ffffff;
+  --border-color: #e2e8f0;
+  --border-focus: #4f46e5;
+  --primary: #4f46e5;
+  --primary-hover: #4338ca;
+  --accent: #0284c7;
+  --text-main: #0f172a;
+  --text-muted: #475569;
+  --text-dim: #94a3b8;
+  --danger: #ef4444;
+  --danger-hover: #dc2626;
+  --success: #10b981;
+  --warning: #f59e0b;
+}
+
+html.dark {
+  --bg-main: #0c0f17;
+  --bg-panel: #131824;
+  --bg-card: #1b2132;
+  --bg-input: #151a28;
+  --border-color: #273147;
+  --border-focus: #4f46e5;
+  --primary: #4f46e5;
+  --primary-hover: #4338ca;
+  --accent: #06b6d4;
+  --text-main: #f1f5f9;
+  --text-muted: #94a3b8;
+  --text-dim: #64748b;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  height: 100dvh;
+  font-family: 'Inter', 'Noto Sans Devanagari', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  overflow: hidden;
+  user-select: none;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.dark ::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: #2d3748;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: #4a5568;
+}
+
+/* Base button styling */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.85rem;
+  font-size: 0.825rem;
+  font-weight: 500;
+  border-radius: 0.375rem;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.15s ease-in-out;
+  white-space: nowrap;
+}
+
+.btn-primary {
+  background-color: var(--primary);
+  color: #ffffff;
+}
+.btn-primary:hover:not(:disabled) {
+  background-color: var(--primary-hover);
+}
+
+.btn-secondary {
+  background-color: #f1f5f9;
+  color: var(--text-main);
+  border-color: var(--border-color);
+}
+.btn-secondary:hover:not(:disabled) {
+  background-color: #e2e8f0;
+  border-color: #cbd5e1;
+}
+
+.dark .btn-secondary {
+  background-color: #1e293b;
+  color: var(--text-main);
+  border-color: var(--border-color);
+}
+.dark .btn-secondary:hover:not(:disabled) {
+  background-color: #334155;
+  border-color: #475569;
+}
+
+.btn-danger {
+  background-color: rgba(239, 68, 68, 0.1);
+  color: #dc2626;
+  border-color: rgba(239, 68, 68, 0.2);
+}
+.btn-danger:hover:not(:disabled) {
+  background-color: var(--danger);
+  color: #ffffff;
+}
+
+.dark .btn-danger {
+  background-color: rgba(239, 68, 68, 0.15);
+  color: #f87171;
+  border-color: rgba(239, 68, 68, 0.3);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--text-muted);
+}
+.btn-ghost:hover:not(:disabled) {
+  background: rgba(0, 0, 0, 0.05);
+  color: var(--text-main);
+}
+.dark .btn-ghost:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-main);
+}
+
+.btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* Input styling */
+input[type="text"],
+input[type="number"],
+select,
+textarea {
+  background-color: var(--bg-input);
+  border: 1px solid var(--border-color);
+  color: var(--text-main);
+  border-radius: 0.375rem;
+  padding: 0.45rem 0.75rem;
+  font-size: 0.85rem;
+  outline: none;
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+  width: 100%;
+  font-family: inherit;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus,
+select:focus,
+textarea:focus {
+  border-color: var(--border-focus);
+}
+
+/* Range input */
+input[type="range"] {
+  accent-color: var(--primary);
+  cursor: pointer;
+}
+
+/* Cards & Panels */
+.panel {
+  background-color: var(--bg-panel);
+  border: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.panel-header {
+  padding: 0.65rem 1rem;
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.825rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+}
+
+.panel-body {
+  padding: 0.85rem 1rem;
+  overflow-y: auto;
+  flex: 1;
+}
+
+/* Badges */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.15rem 0.45rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  border-radius: 0.25rem;
+  background-color: #f1f5f9;
+  color: var(--text-muted);
+  border: 1px solid var(--border-color);
+}
+
+.dark .badge {
+  background-color: #1e293b;
+  color: var(--text-muted);
+  border-color: #334155;
+}
+
+.badge-success {
+  background-color: #ecfdf5;
+  color: #059669;
+  border-color: #a7f3d0;
+}
+.dark .badge-success {
+  background-color: rgba(16, 185, 129, 0.15);
+  color: #34d399;
+  border-color: rgba(16, 185, 129, 0.3);
+}
+
+.badge-primary {
+  background-color: #eef2ff;
+  color: #4f46e5;
+  border-color: #c7d2fe;
+}
+.dark .badge-primary {
+  background-color: rgba(79, 70, 229, 0.2);
+  color: #818cf8;
+  border-color: rgba(79, 70, 229, 0.3);
+}
+
+/* Drag drop area */
+.dropzone {
+  border: 2px dashed var(--border-color);
+  border-radius: 0.5rem;
+  padding: 1.25rem;
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.02);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.dark .dropzone {
+  background-color: rgba(255, 255, 255, 0.01);
+}
+
+.dropzone:hover,
+.dropzone.drag-active {
+  border-color: var(--primary);
+  background-color: rgba(79, 70, 229, 0.06);
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* Pulse animation */
+@keyframes pulse-subtle {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+.animate-pulse-subtle {
+  animation: pulse-subtle 2s infinite ease-in-out;
+}
+
+/* Subtitle Animations for Player Preview */
+@keyframes sub-anim-fade {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+.sub-anim-fade {
+  animation: sub-anim-fade 0.3s ease-out forwards;
+}
+
+@keyframes sub-anim-slide-up {
+  0% { transform: translateY(24px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+.sub-anim-slide-up {
+  animation: sub-anim-slide-up 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Viral Energetic Scale Pop Animation */
+@keyframes sub-anim-pop {
+  0% { transform: scale(0.84); opacity: 0; }
+  60% { transform: scale(1.08); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+.sub-anim-pop {
+  animation: sub-anim-pop 0.26s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+/* Viral Slide Bounce Animation */
+@keyframes sub-anim-bounce {
+  0% { transform: translateY(14px) scale(0.9); opacity: 0; }
+  55% { transform: translateY(-4px) scale(1.05); opacity: 1; }
+  100% { transform: translateY(0) scale(1); opacity: 1; }
+}
+.sub-anim-bounce {
+  animation: sub-anim-bounce 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.sub-karaoke-active {
+  color: var(--karaoke-color, #FACC15);
+  text-shadow: 0 0 12px var(--karaoke-glow, rgba(250, 204, 21, 0.8)), 2px 2px 0 #000;
+  transform: scale(1.12);
+  display: inline-block;
+  transition: all 0.12s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* ============================================================
+   CINEMATIC "FAKE VIDEO PLAYER" MOTION & EFFECTS
+   Turn static image frames into moving video with Ken-Burns,
+   flicker, film grain texture, vignette, and smooth dissolve
+   ============================================================ */
+.cinematic-stage {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: #000;
+}
+
+.cinematic-frame {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.75s ease-in-out;
+  will-change: opacity;
+}
+
+.cinematic-frame.active {
+  opacity: 1;
+}
+
+.cinematic-img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  transform: scale(1.04);
+  animation-timing-function: ease-in-out, steps(1);
+  animation-iteration-count: infinite, infinite;
+  animation-direction: alternate, normal;
+  animation-play-state: paused;
+  will-change: transform;
+}
+
+.playing .cinematic-img {
+  animation-play-state: running;
+}
+
+/* 5 distinct Ken-Burns movement paths so subsequent scenes don't move identically */
+.kenburns-1 {
+  animation-name: kenburns-1, cinematic-flicker;
+  animation-duration: 26s, 6s;
+}
+
+.kenburns-2 {
+  animation-name: kenburns-2, cinematic-flicker;
+  animation-duration: 31s, 5.5s;
+}
+
+.kenburns-3 {
+  animation-name: kenburns-3, cinematic-flicker;
+  animation-duration: 23s, 6.5s;
+}
+
+.kenburns-4 {
+  animation-name: kenburns-4, cinematic-flicker;
+  animation-duration: 34s, 5s;
+}
+
+.kenburns-5 {
+  animation-name: kenburns-5, cinematic-flicker;
+  animation-duration: 28s, 7s;
+}
+
+/* Alternate paths without flicker */
+.kenburns-1.no-flicker { animation-name: kenburns-1; animation-duration: 26s; }
+.kenburns-2.no-flicker { animation-name: kenburns-2; animation-duration: 31s; }
+.kenburns-3.no-flicker { animation-name: kenburns-3; animation-duration: 23s; }
+.kenburns-4.no-flicker { animation-name: kenburns-4; animation-duration: 34s; }
+.kenburns-5.no-flicker { animation-name: kenburns-5; animation-duration: 28s; }
+
+.cinematic-flicker-only {
+  animation-name: cinematic-flicker;
+  animation-duration: 6s;
+  animation-iteration-count: infinite;
+  animation-play-state: paused;
+}
+.playing .cinematic-flicker-only {
+  animation-play-state: running;
+}
+
+@keyframes kenburns-1 {
+  0% {
+    transform: scale(1.03) translate3d(0, 0, 0);
+  }
+  50% {
+    transform: scale(1.14) translate3d(-1.8%, 1.2%, 0);
+  }
+  100% {
+    transform: scale(1.07) translate3d(1.8%, -1.2%, 0);
+  }
+}
+
+@keyframes kenburns-2 {
+  0% {
+    transform: scale(1.12) translate3d(1.5%, -1%, 0);
+  }
+  50% {
+    transform: scale(1.04) translate3d(0, 0, 0);
+  }
+  100% {
+    transform: scale(1.15) translate3d(-1.5%, 1%, 0);
+  }
+}
+
+@keyframes kenburns-3 {
+  0% {
+    transform: scale(1.04) translate3d(0, 1.2%, 0);
+  }
+  50% {
+    transform: scale(1.15) translate3d(1.2%, -1.5%, 0);
+  }
+  100% {
+    transform: scale(1.08) translate3d(-1%, 0, 0);
+  }
+}
+
+@keyframes kenburns-4 {
+  0% {
+    transform: scale(1.13) translate3d(-1.2%, -1%, 0);
+  }
+  50% {
+    transform: scale(1.05) translate3d(1.5%, 1.2%, 0);
+  }
+  100% {
+    transform: scale(1.14) translate3d(0, -1.5%, 0);
+  }
+}
+
+@keyframes kenburns-5 {
+  0% {
+    transform: scale(1.03) translate3d(1%, 0, 0);
+  }
+  50% {
+    transform: scale(1.12) translate3d(-1.2%, 1%, 0);
+  }
+  100% {
+    transform: scale(1.06) translate3d(0, -1%, 0);
+  }
+}
+
+@keyframes cinematic-flicker {
+  0%, 100% { opacity: 1; }
+  3% { opacity: .965; }
+  6% { opacity: 1; }
+  41% { opacity: 1; }
+  42% { opacity: .945; }
+  43% { opacity: 1; }
+  70% { opacity: 1; }
+  71% { opacity: .972; }
+  72% { opacity: 1; }
+}
+
+/* Film Grain Texture */
+.cinematic-grain {
+  position: absolute;
+  inset: -60%;
+  pointer-events: none;
+  opacity: 0.07;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation: grainShift 0.9s steps(4) infinite;
+  animation-play-state: paused;
+  z-index: 10;
+}
+
+.playing .cinematic-grain {
+  animation-play-state: running;
+}
+
+@keyframes grainShift {
+  0% { transform: translate(0, 0); }
+  25% { transform: translate(-2%, 1%); }
+  50% { transform: translate(1%, -2%); }
+  75% { transform: translate(-1%, -1%); }
+  100% { transform: translate(2%, 2%); }
+}
+
+/* Atmospheric Vignette Overlay */
+.cinematic-vignette {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(120% 95% at 50% 50%, transparent 52%, rgba(0, 0, 0, 0.45) 100%),
+    linear-gradient(to top, rgba(0, 0, 0, 0.55), transparent 32%);
+  z-index: 11;
+}
+
+/* Big Center Play Button (Frosted Glass from reference) */
+.big-play-btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(1);
+  width: 72px;
+  height: 72px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(15, 23, 42, 0.65);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(255, 255, 255, 0.18);
+  color: #fff;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: opacity 0.25s ease, transform 0.25s ease, background 0.2s, box-shadow 0.2s;
+  z-index: 18;
+}
+
+.big-play-btn:hover {
+  background: rgba(79, 70, 229, 0.9);
+  transform: translate(-50%, -50%) scale(1.08);
+  box-shadow: 0 12px 40px rgba(79, 70, 229, 0.5), 0 0 0 1.5px rgba(255, 255, 255, 0.3);
+}
+
+.playing .big-play-btn {
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.75);
+  pointer-events: none;
+}
+
+
+
+/* 1. Podcast Watermark Headline (Ref Image 1) */
+.ref-podcast-watermark-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 10px 16px;
+}
+
+.ref-podcast-bg-watermark {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: 'Anton', sans-serif;
+  font-size: 85px;
+  font-weight: 900;
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.2);
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  pointer-events: none;
+  z-index: 1;
+  user-select: none;
+  white-space: nowrap;
+}
+
+.ref-podcast-foreground {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.ref-podcast-line {
+  font-family: 'Anton', 'Montserrat', sans-serif;
+  font-size: 38px;
+  font-weight: 900;
+  color: #ffffff;
+  line-height: 1.1;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+/* 2. White Tiered Block Boxes (Ref Image 2) */
+.ref-tiered-boxes-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  text-align: center;
+}
+
+.ref-tiered-box-row {
+  background: #ffffff;
+  color: #000000;
+  font-family: 'Montserrat', 'Inter', sans-serif;
+  font-size: 28px;
+  font-weight: 900;
+  padding: 4px 14px;
+  border-radius: 4px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  line-height: 1.25;
+  white-space: pre-wrap;
+  word-break: break-word;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+/* 3. Viral Contrast Underline Dual-Tone (Ref Image 3) */
+.ref-contrast-underline-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  text-align: center;
+}
+
+.ref-contrast-line-white {
+  font-family: 'Montserrat', 'Inter', sans-serif;
+  font-size: 32px;
+  font-weight: 900;
+  color: #ffffff;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  line-height: 1.2;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.ref-contrast-line-yellow {
+  font-family: 'Montserrat', 'Inter', sans-serif;
+  font-size: 34px;
+  font-weight: 900;
+  color: #eab308;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  line-height: 1.2;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.ref-contrast-divider {
+  width: 100%;
+  min-width: 120px;
+  height: 3.5px;
+  background: #ffffff;
+  border-radius: 2px;
+  margin: 3px 0;
+}
+
+/* 1. Red Bar Minimal Aesthetic (Ref Image Style) */
+.ref-hindi-redbar-container {
+  display: flex;
+  align-items: stretch;
+  gap: 14px;
+  text-align: left;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.ref-hindi-redbar-line {
+  display: none !important;
+}
+
+.ref-hindi-redbar-content {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  justify-content: center;
+  max-width: 100%;
+}
+
+.ref-hindi-redbar-text1 {
+  font-family: 'Gotu', 'Noto Sans Devanagari', sans-serif;
+  font-size: 1em;
+  font-weight: 500;
+  color: #ffffff;
+  letter-spacing: 0.8px;
+  line-height: 1.35;
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  text-shadow: none !important;
+}
+
+.ref-hindi-redbar-text2 {
+  font-family: 'Gotu', 'Noto Sans Devanagari', sans-serif;
+  font-size: 1em;
+  font-weight: 500;
+  color: #ffffff;
+  letter-spacing: 0.8px;
+  line-height: 1.35;
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  text-shadow: none !important;
+}
+
+.ref-genz-cyber-container,
+.ref-hindi-luxury-container,
+.ref-genz-glass-container,
+.ref-hindi-poetry-container,
+.ref-genz-highlighter-container {
+  max-width: 100%;
+}
+
+.ref-genz-cyber-main,
+.ref-genz-cyber-sub,
+.ref-hindi-luxury-main,
+.ref-hindi-luxury-sub,
+.ref-genz-glass-main,
+.ref-genz-glass-sub,
+.ref-hindi-poetry-main,
+.ref-hindi-poetry-sub,
+.ref-genz-highlighter-box,
+.ref-genz-highlighter-sub {
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+.ref-genz-cyber-container {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  text-align: center;
+  align-items: center;
+}
+
+.ref-genz-cyber-tag {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  font-weight: 800;
+  color: #00ffff;
+  background: rgba(0, 255, 255, 0.12);
+  border: 1px solid rgba(0, 255, 255, 0.5);
+  padding: 3px 10px;
+  border-radius: 9999px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+  margin-bottom: 6px;
+}
+
+.ref-genz-cyber-main {
+  font-family: 'Rajdhani', 'Noto Sans Devanagari', sans-serif;
+  font-size: 32px;
+  font-weight: 900;
+  color: #ffffff;
+  text-shadow: 0 0 15px rgba(0, 255, 255, 0.6), 0 2px 5px rgba(0, 0, 0, 0.9);
+  line-height: 1.25;
+}
+
+.ref-genz-cyber-sub {
+  font-family: 'Rajdhani', 'Noto Sans Devanagari', sans-serif;
+  font-size: 26px;
+  font-weight: 800;
+  color: #a3e635;
+  text-shadow: 0 0 15px rgba(163, 230, 53, 0.6), 0 2px 5px rgba(0, 0, 0, 0.9);
+  line-height: 1.3;
+}
+
+/* 3. Dark Luxury Gold (Cursive + Serif Royal Hindi) */
+.ref-hindi-luxury-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  padding: 6px 14px;
+}
+
+.ref-hindi-luxury-crown {
+  font-size: 14px;
+  color: #fbbf24;
+  margin-bottom: 4px;
+  letter-spacing: 2px;
+}
+
+.ref-hindi-luxury-main {
+  font-family: 'Rozha One', serif;
+  font-size: 34px;
+  font-weight: 700;
+  background: linear-gradient(135deg, #fef08a 0%, #f59e0b 50%, #d97706 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.9));
+  line-height: 1.3;
+}
+
+.ref-hindi-luxury-sub {
+  font-family: 'Noto Sans Devanagari', sans-serif;
+  font-size: 20px;
+  font-weight: 500;
+  color: #e2e8f0;
+  letter-spacing: 1px;
+  margin-top: 4px;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+}
+
+/* 4. Glassmorphism Viral Reel Card (Frosted Glass with Pill Badge) */
+.ref-genz-glass-container {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 18px;
+  padding: 18px 24px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  max-width: 88vw;
+}
+
+.ref-genz-glass-pill {
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 9999px;
+  padding: 4px 12px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.ref-genz-glass-main {
+  font-family: 'Poppins', 'Noto Sans Devanagari', sans-serif;
+  font-size: 28px;
+  font-weight: 800;
+  color: #ffffff;
+  line-height: 1.35;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
+}
+
+.ref-genz-glass-sub {
+  font-family: 'Poppins', 'Noto Sans Devanagari', sans-serif;
+  font-size: 22px;
+  font-weight: 600;
+  color: #cbd5e1;
+  line-height: 1.4;
+  margin-top: 6px;
+}
+
+/* 5. Minimalist Poetry (Thin Serifs & Quotes) */
+.ref-hindi-poetry-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 8px 16px;
+  max-width: 88vw;
+}
+
+.ref-hindi-poetry-quote {
+  font-family: 'Playfair Display', serif;
+  font-size: 42px;
+  color: rgba(255, 255, 255, 0.35);
+  line-height: 20px;
+  margin-bottom: 6px;
+}
+
+.ref-hindi-poetry-main {
+  font-family: 'Tiro Devanagari Hindi', 'Noto Sans Devanagari', serif;
+  font-size: 28px;
+  font-style: italic;
+  font-weight: 600;
+  color: #ffffff;
+  line-height: 1.5;
+  letter-spacing: 0.5px;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.9);
+}
+
+.ref-hindi-poetry-sub {
+  font-family: 'Tiro Devanagari Hindi', 'Noto Sans Devanagari', serif;
+  font-size: 24px;
+  color: #e2e8f0;
+  line-height: 1.5;
+  margin-top: 8px;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9);
+}
+
+.ref-hindi-poetry-divider {
+  width: 40px;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.35);
+  margin-top: 12px;
+  border-radius: 2px;
+}
+
+/* 6. Bold Highlighter Yellow (Viral Hook Gen-Z) */
+.ref-genz-highlighter-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  text-align: center;
+}
+
+.ref-genz-highlighter-box {
+  background: #facc15;
+  color: #000000;
+  font-family: 'Mukta', 'Noto Sans Devanagari', sans-serif;
+  font-size: 30px;
+  font-weight: 900;
+  padding: 4px 14px;
+  border-radius: 8px;
+  box-shadow: 0 6px 20px rgba(250, 204, 21, 0.45), 0 2px 4px rgba(0, 0, 0, 0.3);
+  transform: rotate(-1.5deg);
+  line-height: 1.25;
+}
+
+.ref-genz-highlighter-sub {
+  font-family: 'Mukta', 'Noto Sans Devanagari', sans-serif;
+  font-size: 28px;
+  font-weight: 800;
+  color: #ffffff;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9);
+  line-height: 1.3;
+}
+
+/* Custom Font & Color overrides */
+.post-template-content.custom-font-override,
+.post-template-content.custom-font-override * {
+  font-family: inherit !important;
+}
+
+.post-template-content.custom-color-override,
+.post-template-content.custom-color-override *,
+.post-template-content.custom-color-override [class*="ref-"],
+.post-template-content.custom-color-override div,
+.post-template-content.custom-color-override span {
+  color: inherit !important;
+  -webkit-text-fill-color: initial !important;
+  background-image: none !important;
+  text-shadow: none !important;
+}
+
+/* Remove text shadows globally from template text for ultra-crisp clean text */
+.post-template-content,
+.post-template-content *,
+.post-template-content div,
+.post-template-content span {
+  text-shadow: none !important;
+}
+
+/* Dynamic Accent Color (e.g. Red Bar line, underline, boxes, stamps) */
+.has-custom-accent .ref-hindi-redbar-line {
+  background: var(--template-accent-color) !important;
+  box-shadow: none !important;
+}
+
+.has-custom-accent .ref-underline-accent::after {
+  background: var(--template-accent-color) !important;
+}
+
+.has-custom-accent .ref-trade-box,
+.has-custom-accent .ref-twice-box,
+.has-custom-accent .ref-fired-pill-yellow,
+.has-custom-accent .ref-fired-pill-red,
+.has-custom-accent .ref-fired-row2 {
+  background: var(--template-accent-color) !important;
+}
+
+.has-custom-accent .ref-contrast-divider {
+  background: var(--template-accent-color) !important;
+}
+
+.has-custom-accent .ref-contrast-line-yellow {
+  color: var(--template-accent-color) !important;
+}
+
+.has-custom-accent .ref-tiered-box-row {
+  background: var(--template-accent-color) !important;
+  color: #000000 !important;
+}
+
+.has-custom-accent .ref-podcast-bg-watermark {
+  -webkit-text-stroke-color: var(--template-accent-color) !important;
+  opacity: 0.45;
+}
