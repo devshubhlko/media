@@ -10,17 +10,11 @@
       <!-- Modal Header -->
       <div class="px-5 py-4 border-b border-slate-200 dark:border-gray-800 flex items-center justify-between bg-slate-50/50 dark:bg-gray-950/50">
         <div class="flex items-center gap-2.5">
-          <div class="w-8 h-8 rounded-lg bg-indigo-100 dark:bg-indigo-950/80 text-indigo-600 dark:text-indigo-400 flex items-center justify-center font-bold">
-            <Type class="w-4 h-4" />
-          </div>
+          
           <div>
             <h3 class="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
-              <span>Select Typography Font</span>
-              <span class="text-[10px] px-2 py-0.5 rounded-full bg-indigo-50 dark:bg-indigo-950/80 text-indigo-600 dark:text-indigo-400 font-mono">
-                Live Preview
-              </span>
+              <span>Select Font</span>
             </h3>
-            <p class="text-[11px] text-slate-500 dark:text-gray-400">Hindi aur English ke aesthetic fonts chunen</p>
           </div>
         </div>
 
@@ -44,7 +38,7 @@
                 : 'text-slate-600 dark:text-gray-400 hover:text-slate-900'
             ]"
           >
-            🇮🇳 Hindi / Devanagari ({{ hindiFonts.length }})
+            Hindi
           </button>
           <button
             @click="activeCategory = 'english'"
@@ -55,7 +49,7 @@
                 : 'text-slate-600 dark:text-gray-400 hover:text-slate-900'
             ]"
           >
-            🔤 English / Aesthetic ({{ englishFonts.length }})
+           English 
           </button>
         </div>
 
@@ -65,7 +59,7 @@
           title="Reset to original template font"
         >
           <RotateCcw class="w-3 h-3" />
-          <span>Template Default</span>
+          <span>Default</span>
         </button>
       </div>
 
