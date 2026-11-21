@@ -3,11 +3,6 @@
     <!-- Top Bar Controls -->
     <div class="h-10 border-b border-slate-200 dark:border-gray-800 bg-white/80 dark:bg-gray-900/40 px-4 flex items-center justify-between shrink-0 select-none backdrop-blur">
       <div class="flex items-center gap-2 text-xs font-semibold text-slate-700 dark:text-gray-300">
-        <span>Post Canvas Preview</span>
-        <span class="text-slate-400 font-mono text-[10px]">({{ resolution.toUpperCase() }})</span>
-        <span class="text-[11px] px-1.5 py-0.5 rounded bg-indigo-50 dark:bg-indigo-950/50 text-indigo-600 dark:text-indigo-400 font-medium">
-          {{ textLayers.length }} Text Layer{{ textLayers.length > 1 ? 's' : '' }}
-        </span>
       </div>
 
       <!-- Ratio Quick Switcher -->
@@ -58,39 +53,86 @@
         <!-- Subtle aesthetic dark vignette overlay for legibility -->
         <div v-if="vignetteEffect" class="absolute inset-0 bg-black/15 pointer-events-none z-[6]"></div>
 
-        <!-- 3. Text Layers (Clean Drag: Pure Text Only, No X/Y Badge, No Border Box Area) -->
+        <!-- 3. Text Layers with Professional Bounding Box & Resizer Handles (Like Reference Image) -->
         <div
           v-for="layer in textLayers"
           :key="layer.id"
           :class="[
-            'absolute flex justify-center items-center select-none cursor-grab active:cursor-grabbing',
+            'absolute flex justify-center items-center select-none cursor-move transition-[box-shadow]',
             activeLayerId === layer.id ? 'z-20' : 'z-10'
           ]"
           :style="getLayerWrapperStyle(layer)"
           @pointerdown="(e) => onLayerPointerDown(layer, e)"
         >
-          <!-- Scaler -->
+          <!-- Outer Selection Bounding Box with Orange Dashed Border -->
           <div
-            class="template-scaler"
-            :style="{
-              transform: `scale(${getEffectiveScale(layer)})`,
-              transformOrigin: 'center center',
-              width: '100%',
-              display: 'flex',
-              justifyContent: 'center'
+            class="relative w-full flex justify-center items-center py-2 px-3 transition-all"
+            :class="{
+              'border border-dashed border-amber-500': activeLayerId === layer.id
             }"
           >
-            <!-- Rendered Template Html -->
+            <!-- Scaler -->
             <div
-              class="post-template-content"
-              :class="{
-                'custom-font-override': Boolean(layer?.fontFamily),
-                'custom-color-override': Boolean(layer?.textColor),
-                'has-custom-accent': Boolean(layer?.accentColor)
+              class="template-scaler"
+              :style="{
+                transform: `scale(${getEffectiveScale(layer)})`,
+                transformOrigin: 'center center',
+                width: '100%',
+                display: 'flex',
+                justifyContent: 'center'
               }"
-              :style="getLayerContentStyle(layer)"
-              v-html="renderLayerHtml(layer)"
-            ></div>
+            >
+              <!-- Rendered Template Html -->
+              <div
+                class="post-template-content"
+                :class="{
+                  'custom-font-override': Boolean(layer?.fontFamily),
+                  'custom-color-override': Boolean(layer?.textColor),
+                  'has-custom-accent': Boolean(layer?.accentColor)
+                }"
+                :style="getLayerContentStyle(layer)"
+                v-html="renderLayerHtml(layer)"
+              ></div>
+            </div>
+
+            <!-- Reference Style Drag & Resize Handles: 4 Corner Dots + 2 Side Bars -->
+            <template v-if="activeLayerId === layer.id">
+              <!-- Top-Left Corner Dot -->
+              <div
+                class="absolute -top-1.5 -left-1.5 w-3 h-3 bg-white border-2 border-amber-500 rounded-full cursor-nwse-resize shadow-xs touch-none z-30 hover:scale-125 transition-transform"
+                @pointerdown.stop="(e) => onResizeHandlePointerDown(layer, e, 'nw')"
+              ></div>
+
+              <!-- Top-Right Corner Dot -->
+              <div
+                class="absolute -top-1.5 -right-1.5 w-3 h-3 bg-white border-2 border-amber-500 rounded-full cursor-nesw-resize shadow-xs touch-none z-30 hover:scale-125 transition-transform"
+                @pointerdown.stop="(e) => onResizeHandlePointerDown(layer, e, 'ne')"
+              ></div>
+
+              <!-- Bottom-Left Corner Dot -->
+              <div
+                class="absolute -bottom-1.5 -left-1.5 w-3 h-3 bg-white border-2 border-amber-500 rounded-full cursor-nesw-resize shadow-xs touch-none z-30 hover:scale-125 transition-transform"
+                @pointerdown.stop="(e) => onResizeHandlePointerDown(layer, e, 'sw')"
+              ></div>
+
+              <!-- Bottom-Right Corner Dot -->
+              <div
+                class="absolute -bottom-1.5 -right-1.5 w-3 h-3 bg-white border-2 border-amber-500 rounded-full cursor-nwse-resize shadow-xs touch-none z-30 hover:scale-125 transition-transform"
+                @pointerdown.stop="(e) => onResizeHandlePointerDown(layer, e, 'se')"
+              ></div>
+
+              <!-- Left Middle Bar Handle -->
+              <div
+                class="absolute top-1/2 -left-1.5 -translate-y-1/2 w-2.5 h-4.5 bg-white border-2 border-amber-500 rounded-sm cursor-ew-resize shadow-xs touch-none z-30 hover:scale-110 transition-transform"
+                @pointerdown.stop="(e) => onResizeHandlePointerDown(layer, e, 'w')"
+              ></div>
+
+              <!-- Right Middle Bar Handle -->
+              <div
+                class="absolute top-1/2 -right-1.5 -translate-y-1/2 w-2.5 h-4.5 bg-white border-2 border-amber-500 rounded-sm cursor-ew-resize shadow-xs touch-none z-30 hover:scale-110 transition-transform"
+                @pointerdown.stop="(e) => onResizeHandlePointerDown(layer, e, 'e')"
+              ></div>
+            </template>
           </div>
         </div>
       </div>
@@ -128,11 +170,11 @@ defineExpose({
 // Aspect ratio classes for responsive canvas preview
 const aspectRatioClasses = computed(() => {
   if (aspectRatio.value === '9:16') {
-    return 'h-full max-h-[560px] aspect-[9/16]';
+    return 'h-full max-h-[280px] sm:max-h-[420px] lg:max-h-[560px] aspect-[9/16]';
   } else if (aspectRatio.value === '1:1') {
-    return 'h-full max-h-[560px] aspect-square';
+    return 'h-full max-h-[280px] sm:max-h-[420px] lg:max-h-[560px] aspect-square';
   }
-  return 'w-full max-w-[780px] aspect-video';
+  return 'w-full max-w-[620px] lg:max-w-[780px] aspect-video max-h-[280px] sm:max-h-[400px] lg:max-h-[500px]';
 });
 
 // Dynamic canvas background style
@@ -245,6 +287,50 @@ function onLayerPointerDown(layer, e) {
 
   const onPointerUp = () => {
     draggingLayerId.value = null;
+    window.removeEventListener('pointermove', onPointerMove);
+    window.removeEventListener('pointerup', onPointerUp);
+  };
+
+// Pointer move/up cleanup
+  window.addEventListener('pointermove', onPointerMove, { passive: false });
+  window.addEventListener('pointerup', onPointerUp, { once: true });
+}
+
+// Drag handle to resize font size directly on screen (corner dots & side handles)
+function onResizeHandlePointerDown(layer, e, direction = 'se') {
+  if (e.button !== undefined && e.button !== 0) return;
+  e.preventDefault();
+  e.stopPropagation();
+
+  const startX = e.clientX;
+  const startY = e.clientY;
+  const initialFontSize = layer.fontSize || 48;
+
+  const onPointerMove = (evt) => {
+    evt.preventDefault();
+    const deltaX = evt.clientX - startX;
+    const deltaY = evt.clientY - startY;
+
+    let delta = 0;
+    if (direction === 'se') {
+      delta = (deltaX + deltaY) / 2;
+    } else if (direction === 'sw') {
+      delta = (-deltaX + deltaY) / 2;
+    } else if (direction === 'ne') {
+      delta = (deltaX - deltaY) / 2;
+    } else if (direction === 'nw') {
+      delta = (-deltaX - deltaY) / 2;
+    } else if (direction === 'e') {
+      delta = deltaX;
+    } else if (direction === 'w') {
+      delta = -deltaX;
+    }
+
+    const newSize = Math.max(16, Math.min(140, Math.round(initialFontSize + delta * 0.75)));
+    layer.fontSize = newSize;
+  };
+
+  const onPointerUp = () => {
     window.removeEventListener('pointermove', onPointerMove);
     window.removeEventListener('pointerup', onPointerUp);
   };

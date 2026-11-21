@@ -25,7 +25,7 @@ const solidColor = ref('#0f172a');
 const uploadedImage = ref(null); // { url, name, path }
 
 // Aspect ratio and resolution for image export
-const aspectRatio = ref('9:16'); // '9:16' | '1:1' | '16:9'
+const aspectRatio = ref('16:9'); // '9:16' | '1:1' | '16:9'
 const resolution = ref('1080p'); // '720p' | '1080p' | '4k'
 
 // Text Content (Multi-line text supported)

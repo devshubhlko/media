@@ -978,12 +978,49 @@ input[type="range"] {
   text-shadow: none !important;
 }
 
-/* Remove text shadows globally from template text for ultra-crisp clean text */
+/* Remove text shadows, unnecessary margins, and reduce excessive container paddings globally from template text */
 .post-template-content,
 .post-template-content *,
 .post-template-content div,
 .post-template-content span {
   text-shadow: none !important;
+}
+
+.post-template-content [class*="-container"] {
+  padding: 0 !important;
+  margin: 0 !important;
+  gap: 4px !important;
+}
+
+.post-template-content p,
+.post-template-content h1,
+.post-template-content h2,
+.post-template-content h3,
+.post-template-content h4,
+.post-template-content [class*="-text"],
+.post-template-content [class*="-line"],
+.post-template-content [class*="-main"],
+.post-template-content [class*="-sub"],
+.post-template-content [class*="-row"] {
+  margin: 0 !important;
+  line-height: 1.15 !important;
+}
+
+.ref-hindi-redbar-container {
+  padding: 0 !important;
+  margin: 0 !important;
+  gap: 6px !important;
+}
+
+.ref-hindi-redbar-content {
+  gap: 4px !important;
+}
+
+.ref-hindi-redbar-text1,
+.ref-hindi-redbar-text2 {
+  margin: 0 !important;
+  padding: 0 !important;
+  line-height: 1.15 !important;
 }
 
 /* Dynamic Accent Color (e.g. Red Bar line, underline, boxes, stamps) */
