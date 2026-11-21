@@ -283,9 +283,7 @@ input[type="range"] {
   background-color: rgba(79, 70, 229, 0.06);
 }
 
-.hidden {
-  display: none !important;
-}
+
 
 /* Pulse animation */
 @keyframes pulse-subtle {
