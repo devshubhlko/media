@@ -93,6 +93,7 @@ const centerPreviewRefMobile = ref(null);
 const {
   aspectRatio,
   resolution,
+  isCapturing,
   addNotification
 } = usePostState();
 
@@ -107,7 +108,11 @@ async function handleDownloadHd() {
 
   try {
     isDownloading.value = true;
+    isCapturing.value = true;
     addNotification('info', `Preparing ${resolution.value.toUpperCase()} HD Image...`);
+
+    // Allow DOM to update and remove selection borders/handles
+    await new Promise(r => setTimeout(r, 60));
 
     const dateStr = new Date().toISOString().slice(0, 10);
     const fileName = `post_${aspectRatio.value.replace(':', 'x')}_${resolution.value}_${dateStr}.png`;
@@ -118,6 +123,7 @@ async function handleDownloadHd() {
     console.error('HD download failed:', err);
     addNotification('danger', `Failed to download HD image: ${err.message}`);
   } finally {
+    isCapturing.value = false;
     isDownloading.value = false;
   }
 }

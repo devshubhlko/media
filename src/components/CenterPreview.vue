@@ -24,7 +24,10 @@
     </div>
 
     <!-- Center Canvas Stage Area -->
-    <div class="flex-1 flex items-center justify-center p-3 sm:p-6 overflow-hidden bg-slate-200/50 dark:bg-black/50 relative">
+    <div 
+      class="flex-1 flex items-center justify-center p-3 sm:p-6 overflow-hidden bg-slate-200/50 dark:bg-black/50 relative"
+      @pointerdown="onBackdropPointerDown"
+    >
       <!-- The Target Element Captured for HD Download -->
       <div
         ref="canvasBoxRef"
@@ -33,6 +36,7 @@
           aspectRatioClasses
         ]"
         :style="canvasBackgroundStyle"
+        @pointerdown.self="activeLayerId = null"
       >
         <!-- 1. Background Layer: Gradient Preset -->
         <div
@@ -40,6 +44,7 @@
           class="screen-bg-layer"
           :class="[selectedPreset]"
           style="position: absolute; inset: 0;"
+          @pointerdown="activeLayerId = null"
         ></div>
 
         <!-- 2. Background Layer: Uploaded Image or Pexels Selected Image -->
@@ -68,7 +73,7 @@
           <div
             class="relative inline-flex justify-center items-center py-1 px-2 transition-all max-w-full"
             :class="{
-              'border border-dashed border-amber-500': activeLayerId === layer.id
+              'border border-dashed border-amber-500': activeLayerId === layer.id && !isCapturing
             }"
           >
             <!-- Scaler -->
@@ -93,40 +98,40 @@
             </div>
 
             <!-- Reference Style Drag & Resize Handles: 4 Corner Dots + 2 Side Bars -->
-            <template v-if="activeLayerId === layer.id">
+            <template v-if="activeLayerId === layer.id && !isCapturing">
               <!-- Top-Left Corner Dot -->
               <div
-                class="absolute -top-1.5 -left-1.5 w-3 h-3 bg-white border-2 border-amber-500 rounded-full cursor-nwse-resize shadow-xs touch-none z-30 hover:scale-125 transition-transform"
+                class="hide-on-export absolute -top-1.5 -left-1.5 w-3 h-3 bg-white border-2 border-amber-500 rounded-full cursor-nwse-resize shadow-xs touch-none z-30 hover:scale-125 transition-transform"
                 @pointerdown.stop="(e) => onResizeHandlePointerDown(layer, e, 'nw')"
               ></div>
 
               <!-- Top-Right Corner Dot -->
               <div
-                class="absolute -top-1.5 -right-1.5 w-3 h-3 bg-white border-2 border-amber-500 rounded-full cursor-nesw-resize shadow-xs touch-none z-30 hover:scale-125 transition-transform"
+                class="hide-on-export absolute -top-1.5 -right-1.5 w-3 h-3 bg-white border-2 border-amber-500 rounded-full cursor-nesw-resize shadow-xs touch-none z-30 hover:scale-125 transition-transform"
                 @pointerdown.stop="(e) => onResizeHandlePointerDown(layer, e, 'ne')"
               ></div>
 
               <!-- Bottom-Left Corner Dot -->
               <div
-                class="absolute -bottom-1.5 -left-1.5 w-3 h-3 bg-white border-2 border-amber-500 rounded-full cursor-nesw-resize shadow-xs touch-none z-30 hover:scale-125 transition-transform"
+                class="hide-on-export absolute -bottom-1.5 -left-1.5 w-3 h-3 bg-white border-2 border-amber-500 rounded-full cursor-nesw-resize shadow-xs touch-none z-30 hover:scale-125 transition-transform"
                 @pointerdown.stop="(e) => onResizeHandlePointerDown(layer, e, 'sw')"
               ></div>
 
               <!-- Bottom-Right Corner Dot -->
               <div
-                class="absolute -bottom-1.5 -right-1.5 w-3 h-3 bg-white border-2 border-amber-500 rounded-full cursor-nwse-resize shadow-xs touch-none z-30 hover:scale-125 transition-transform"
+                class="hide-on-export absolute -bottom-1.5 -right-1.5 w-3 h-3 bg-white border-2 border-amber-500 rounded-full cursor-nwse-resize shadow-xs touch-none z-30 hover:scale-125 transition-transform"
                 @pointerdown.stop="(e) => onResizeHandlePointerDown(layer, e, 'se')"
               ></div>
 
               <!-- Left Middle Bar Handle -->
               <div
-                class="absolute top-1/2 -left-1.5 -translate-y-1/2 w-2.5 h-4.5 bg-white border-2 border-amber-500 rounded-sm cursor-ew-resize shadow-xs touch-none z-30 hover:scale-110 transition-transform"
+                class="hide-on-export absolute top-1/2 -left-1.5 -translate-y-1/2 w-2.5 h-4.5 bg-white border-2 border-amber-500 rounded-sm cursor-ew-resize shadow-xs touch-none z-30 hover:scale-110 transition-transform"
                 @pointerdown.stop="(e) => onResizeHandlePointerDown(layer, e, 'w')"
               ></div>
 
               <!-- Right Middle Bar Handle -->
               <div
-                class="absolute top-1/2 -right-1.5 -translate-y-1/2 w-2.5 h-4.5 bg-white border-2 border-amber-500 rounded-sm cursor-ew-resize shadow-xs touch-none z-30 hover:scale-110 transition-transform"
+                class="hide-on-export absolute top-1/2 -right-1.5 -translate-y-1/2 w-2.5 h-4.5 bg-white border-2 border-amber-500 rounded-sm cursor-ew-resize shadow-xs touch-none z-30 hover:scale-110 transition-transform"
                 @pointerdown.stop="(e) => onResizeHandlePointerDown(layer, e, 'e')"
               ></div>
             </template>
@@ -157,8 +162,16 @@ const {
   vintageEffect,
   vignetteEffect,
   textLayers,
-  activeLayerId
+  activeLayerId,
+  isCapturing
 } = usePostState();
+
+function onBackdropPointerDown(e) {
+  // If clicked outside layer items, deselect active layer
+  if (e.target === e.currentTarget) {
+    activeLayerId.value = null;
+  }
+}
 
 defineExpose({
   getCanvasElement: () => canvasBoxRef.value
