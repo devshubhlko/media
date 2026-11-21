@@ -53,12 +53,12 @@
         <!-- Subtle aesthetic dark vignette overlay for legibility -->
         <div v-if="vignetteEffect" class="absolute inset-0 bg-black/15 pointer-events-none z-[6]"></div>
 
-        <!-- 3. Text Layers with Professional Bounding Box & Resizer Handles (Like Reference Image) -->
+        <!-- 3. Text Layers with Professional Bounding Box & Resizer Handles (Fits Content) -->
         <div
           v-for="layer in textLayers"
           :key="layer.id"
           :class="[
-            'absolute flex justify-center items-center select-none cursor-move transition-[box-shadow]',
+            'absolute select-none cursor-move transition-[box-shadow]',
             activeLayerId === layer.id ? 'z-20' : 'z-10'
           ]"
           :style="getLayerWrapperStyle(layer)"
@@ -66,20 +66,17 @@
         >
           <!-- Outer Selection Bounding Box with Orange Dashed Border -->
           <div
-            class="relative w-full flex justify-center items-center py-2 px-3 transition-all"
+            class="relative inline-flex justify-center items-center py-1 px-2 transition-all max-w-full"
             :class="{
               'border border-dashed border-amber-500': activeLayerId === layer.id
             }"
           >
             <!-- Scaler -->
             <div
-              class="template-scaler"
+              class="template-scaler inline-flex justify-center items-center"
               :style="{
                 transform: `scale(${getEffectiveScale(layer)})`,
-                transformOrigin: 'center center',
-                width: '100%',
-                display: 'flex',
-                justifyContent: 'center'
+                transformOrigin: 'center center'
               }"
             >
               <!-- Rendered Template Html -->
@@ -195,11 +192,12 @@ function getEffectiveScale(layer) {
 function getLayerContentStyle(layer) {
   const style = {
     fontSize: `${layer?.fontSize || 48}px`,
-    width: '100%',
+    width: 'fit-content',
     maxWidth: '100%',
     boxSizing: 'border-box',
     wordBreak: 'break-word',
-    overflowWrap: 'break-word'
+    overflowWrap: 'break-word',
+    textAlign: 'center'
   };
   if (layer?.fontFamily) {
     style.fontFamily = `"${layer.fontFamily}", sans-serif !important`;
@@ -242,8 +240,8 @@ function getLayerWrapperStyle(layer) {
     left,
     top,
     transform,
-    width: '88%',
-    maxWidth: '88%',
+    width: 'fit-content',
+    maxWidth: '92%',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',

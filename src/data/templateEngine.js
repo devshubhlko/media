@@ -202,6 +202,31 @@ export function renderPostTemplate(templateId, fullText) {
     `;
   }
 
+  // Single line fallback: If user didn't enter newline, keep on ONE single line without auto-splitting into 2 lines!
+  if (style.id === 'hindi-rozkha') {
+    return `
+      <div class="ref-hindi-rozkha-container">
+        <div class="ref-hindi-rozkha-main">${cleanText}</div>
+      </div>
+    `;
+  }
+
+  if (style.id === 'hindi-divine') {
+    return `
+      <div class="ref-hindi-divine-container">
+        <div class="ref-hindi-divine-main">${cleanText}</div>
+      </div>
+    `;
+  }
+
+  if (style.id === 'hindi-yatra' || style.id === 'hindi-hook' || style.id === 'hindi-love') {
+    return `
+      <div class="ref-${style.id}-container">
+        <div class="ref-${style.id}-main">${cleanText}</div>
+      </div>
+    `;
+  }
+
   // Word-based split
   const words = cleanText.split(/\s+/).filter(Boolean);
   return style.renderStatic(words);
