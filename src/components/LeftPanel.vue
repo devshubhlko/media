@@ -200,7 +200,6 @@ function setLayerPosition(posId) {
 const sampleQuotes = [
   "खामोशी का शोर\nसबसे गहरा होता है",
   "हार मत मानो,\nवक़्त तुम्हारा भी आएगा",
-  "कर्म ही तुम्हारा\nसबसे बड़ा धर्म है",
   "START NOW\nNOT TOMORROW",
   "BUILD IN SILENCE\nLET SUCCESS MAKE THE NOISE"
 ];

@@ -988,23 +988,17 @@ input[type="range"] {
 }
 
 .post-template-content {
-  width: fit-content !important;
-  max-width: 100% !important;
+  width: max-content !important;
   display: inline-flex !important;
   justify-content: center !important;
   align-items: center !important;
-  word-break: break-word !important;
-  overflow-wrap: break-word !important;
 }
 
 .post-template-content [class*="-container"] {
-  width: fit-content !important;
-  max-width: 100% !important;
+  width: max-content !important;
   padding: 0 !important;
   margin: 0 !important;
   gap: 4px !important;
-  word-break: break-word !important;
-  overflow-wrap: break-word !important;
 }
 
 .post-template-content p,
@@ -1019,33 +1013,23 @@ input[type="range"] {
 .post-template-content [class*="-row"] {
   margin: 0 !important;
   line-height: 1.15 !important;
-  word-break: break-word !important;
-  overflow-wrap: break-word !important;
 }
 
 .ref-hindi-redbar-container {
-  width: fit-content !important;
-  max-width: 100% !important;
+  width: max-content !important;
   padding: 0 !important;
   margin: 0 !important;
   gap: 6px !important;
-  word-break: break-word !important;
-  overflow-wrap: break-word !important;
 }
 
 .ref-hindi-redbar-content {
-  width: fit-content !important;
-  max-width: 100% !important;
+  width: max-content !important;
   gap: 4px !important;
-  word-break: break-word !important;
-  overflow-wrap: break-word !important;
 }
 
 .ref-hindi-redbar-text1,
 .ref-hindi-redbar-text2 {
-  white-space: pre-wrap !important;
-  word-break: break-word !important;
-  overflow-wrap: break-word !important;
+  white-space: nowrap !important;
   margin: 0 !important;
   padding: 0 !important;
   line-height: 1.15 !important;

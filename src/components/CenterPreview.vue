@@ -192,11 +192,9 @@ function getEffectiveScale(layer) {
 function getLayerContentStyle(layer) {
   const style = {
     fontSize: `${layer?.fontSize || 48}px`,
-    width: 'fit-content',
-    maxWidth: '100%',
+    width: 'max-content',
     boxSizing: 'border-box',
-    wordBreak: 'break-word',
-    overflowWrap: 'break-word',
+    whiteSpace: 'nowrap',
     textAlign: 'center'
   };
   if (layer?.fontFamily) {
@@ -223,8 +221,8 @@ function getLayerWrapperStyle(layer) {
   let transform = 'translate(-50%, -50%)';
 
   if (layer.position === 'custom' && layer.customCoord) {
-    const x = Math.min(92, Math.max(8, layer.customCoord.x ?? 50));
-    const y = Math.min(92, Math.max(8, layer.customCoord.y ?? 50));
+    const x = Math.min(95, Math.max(5, layer.customCoord.x ?? 50));
+    const y = Math.min(95, Math.max(5, layer.customCoord.y ?? 50));
     left = `${x}%`;
     top = `${y}%`;
   } else if (layer.position === 'top') {
@@ -240,8 +238,7 @@ function getLayerWrapperStyle(layer) {
     left,
     top,
     transform,
-    width: 'fit-content',
-    maxWidth: '92%',
+    width: 'max-content',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
