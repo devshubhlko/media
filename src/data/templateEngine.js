@@ -227,6 +227,85 @@ export function renderPostTemplate(templateId, fullText) {
     `;
   }
 
+  // Single line fallback for English and other templates: Keep on ONE line without splitting into multi-tier lines
+  if (style.id === 'storyteller') {
+    return `
+      <div class="ref-storyteller-wrap">
+        <div class="ref-storyteller-line1">${cleanText}</div>
+      </div>
+    `;
+  }
+
+  if (style.id === 'sells') {
+    return `
+      <div class="ref-sells-container">
+        <div class="ref-sells">${cleanText}</div>
+      </div>
+    `;
+  }
+
+  if (style.id === 'early') {
+    return `
+      <div class="ref-early-container">
+        <div class="ref-early-title">${cleanText}</div>
+      </div>
+    `;
+  }
+
+  if (style.id === 'studio') {
+    return `
+      <div class="ref-studio-container">
+        <div class="ref-studio-text">${cleanText}</div>
+      </div>
+    `;
+  }
+
+  if (style.id === 'trade') {
+    return `
+      <div class="ref-trade-container">
+        <div class="ref-trade-box">${cleanText}</div>
+      </div>
+    `;
+  }
+
+  if (style.id === 'bought') {
+    return `
+      <div class="ref-bought-container">
+        <div class="ref-bought-script">${cleanText}</div>
+      </div>
+    `;
+  }
+
+  if (style.id === 'fired') {
+    return `
+      <div class="ref-fired-container">
+        <div class="ref-fired-row1">
+          <div class="ref-fired-pill-yellow">${cleanText}</div>
+        </div>
+      </div>
+    `;
+  }
+
+  if (style.id === 'teams') {
+    return `
+      <div class="ref-teams-container">
+        <div class="ref-teams ref-teams-shadow">${cleanText}</div>
+      </div>
+    `;
+  }
+
+  if (style.id === 'month') {
+    return `
+      <div class="ref-month-container">
+        <div class="ref-month">${cleanText}</div>
+      </div>
+    `;
+  }
+
+  if (style.id === 'lofi-paper') {
+    return `<div class="ref-lofi-tape">${cleanText}</div>`;
+  }
+
   // Word-based split
   const words = cleanText.split(/\s+/).filter(Boolean);
   return style.renderStatic(words);

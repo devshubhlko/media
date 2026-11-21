@@ -176,7 +176,7 @@ const currentTemplateName = computed(() => {
 });
 
 const quickColors = [
-  '#ffffff', '#000000', '#facc15', '#ef4444', '#06b6d4', '#10b981', '#f43f5e', '#a855f7'
+  '#ffffff', '#000000', '#facc15', '#ef4444', '#06b6d4', '#10b981', '#f43f5e',
 ];
 
 function onFontChange() {

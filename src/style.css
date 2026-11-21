@@ -984,6 +984,7 @@ input[type="range"] {
 .post-template-content div,
 .post-template-content span {
   text-shadow: none !important;
+  max-width: 100% !important;
 }
 
 .post-template-content {
